@@ -10,7 +10,6 @@ const YaziListesi = (props) => {
         axios.get(" https://blog-yazi-yorum.herokuapp.com/posts")
             .then(response => setYaziListesi(response.data))
     }, [])
-    console.log({ yaziListesi })
     return <List divided relaxed >{yaziListesi.map(yazi => {
         return (
 
