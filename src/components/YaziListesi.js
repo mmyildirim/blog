@@ -23,6 +23,8 @@ const YaziListesi = (props) => {
 
         )
     })}
+    <div><a href="/yaziekle"className="btn btn-outline-primary d-block mt-3">Yeni Yazi Ekle</a></div>
     </List>
+    
 }
 export default YaziListesi;
