@@ -4,6 +4,7 @@ import moment from 'moment';
 import YaziYorumlari from "./YaziYorumlari";
 import { api } from "../api";
 import {Link} from "react-router-dom";
+import SilModal from "./SilModal";
 
 
 const YaziDetayi = (props) => {
@@ -41,7 +42,7 @@ const YaziDetayi = (props) => {
             <p className="  mb-4 text-lead text-center">{yaziDetayi.content}</p>
             <div className="ui buttons d-flex mb-5">
                 <Link to={`/posts/${yaziDetayi.id}/edit`}  className="ui  primary inverted   button">Duzenle</Link>
-                <button className="ui red inverted  button">Sil</button>
+                <SilModal yazi={yaziDetayi} push={props.history.push}/>
             </div>
             <YaziYorumlari yorumlar={yorumlar} handleSubmit={handleCommentSubmit} />
 

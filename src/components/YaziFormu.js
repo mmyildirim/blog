@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import { withRouter } from "react-router-dom";
 import { api } from "../api";
+import { Link } from "react-router-dom";
 
 const YaziFormu = (props) => {
     const [yazi, setYazi] = useState({ title: "", content: "" });
@@ -45,7 +46,7 @@ const YaziFormu = (props) => {
                     <textarea rows="3" value={yazi.content} name="content" onChange={onInputChange} placeholder="Yazinizi Giriniz."></textarea>
                 </div>
                 <button className="btn btn-outline-primary  text-load" onClick={onFormSubmit}>Yaziyi Ekle</button>
-                <a href="/" className="btn btn-outline-secondary mx-2 ">İptal Et</a>
+                <Link to={`/posts/${props.match.params.id}`} className="btn btn-outline-secondary mx-2 ">İptal Et</Link>
             </form>
         </>
     )
