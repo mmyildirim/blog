@@ -1,6 +1,7 @@
-import axios from "axios";
-import { useState } from "react";
+
+import { useEffect, useState } from "react";
 import { withRouter } from "react-router-dom";
+import { api } from "../api";
 
 const YaziFormu = (props) => {
     const [yazi, setYazi] = useState({ title: "", content: "" });
@@ -11,10 +12,23 @@ const YaziFormu = (props) => {
     }
     const onFormSubmit = (event) => {
         event.preventDefault();
-        axios.post(' https://blog-yazi-yorum.herokuapp.com/posts', yazi)
+        if(props.yazi.title){
+            api().put(`/posts/${props.match.params.id}`,yazi)
+            .then((response)=>{
+                props.history.push(`/posts/${props.match.params.id}`)
+            }).catch(err=>setHata("Yazi Basligi ve Yaziniz Kismi Bos Birakilamaz!"))
+
+        }else{
+
+            api().post('/posts', yazi)
             .then((response) => props.history.push("/"))
-            .catch(setHata("Yazi Basligi ve Yaziniz Kismi Bos Birakilamaz!"))
+            .catch(err=>setHata("Yazi Basligi ve Yaziniz Kismi Bos Birakilamaz!"))
+        }
+        
     }
+    useEffect(()=>{
+        if(props.yazi?.title&& props.yazi?.content) setYazi(props.yazi)
+    },[props.yazi]);
     return (
         <>
             {hata && (
@@ -31,12 +45,12 @@ const YaziFormu = (props) => {
                     <textarea rows="3" value={yazi.content} name="content" onChange={onInputChange} placeholder="Yazinizi Giriniz."></textarea>
                 </div>
                 <button className="btn btn-outline-primary  text-load" onClick={onFormSubmit}>Yaziyi Ekle</button>
-                <a href="/"className="btn btn-outline-secondary mx-2 ">İptal Et</a>
+                <a href="/" className="btn btn-outline-secondary mx-2 ">İptal Et</a>
             </form>
-            </>
-            )
-        
-    
+        </>
+    )
+
+
 }
 
 export default withRouter(YaziFormu);

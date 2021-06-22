@@ -1,13 +1,14 @@
-import axios from 'axios';
+
 import moment from 'moment';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { List } from 'semantic-ui-react'
+import { api } from '../api';
 
 const YaziListesi = (props) => {
     const [yaziListesi, setYaziListesi] = useState([]);
     useEffect(() => {
-        axios.get(" https://blog-yazi-yorum.herokuapp.com/posts")
+        api().get("/posts")
             .then(response => setYaziListesi(response.data))
     }, [])
     return <List divided relaxed >{yaziListesi.map(yazi => {
